@@ -609,3 +609,31 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
   .footer { transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ============ PAPELARIA CLEAN ============ */
+/* polaroid presa com clipe dourado no cartão Sobre */
+.polaroid {
+  position: absolute; z-index: 2; top: -34px; right: -26px; width: 132px; margin: 0;
+  padding: 8px 8px 28px; background: #fbf8f2;
+  box-shadow: 0 14px 24px -14px rgba(42, 27, 23, .45), 0 1px 2px rgba(42, 27, 23, .12);
+  rotate: 6deg;
+}
+.polaroid img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; font-family: var(--script); font-size: 17px; color: var(--brown); }
+.polaroid__clip { position: absolute; z-index: 1; top: -22px; left: 18px; width: 14px; height: 40px; rotate: -8deg; filter: drop-shadow(0 1px 1px rgba(42, 27, 23, .25)); }
+.about__text h2 { padding-right: 96px; }
+
+/* assinatura à mão no fim do cartão */
+.signature { margin: 26px 0 0; font-size: 13px; color: var(--taupe); }
+.signature span { display: block; margin-top: 2px; font-family: var(--script); font-size: 38px; line-height: 1; color: var(--brown); }
+
+/* carimbo postal no contato */
+.cta { position: relative; }
+.postmark { position: absolute; top: clamp(56px, 8vw, 104px); right: max(var(--pad), calc(50% - 470px)); width: 170px; height: auto; color: rgba(125, 35, 53, .55); rotate: -9deg; pointer-events: none; }
+
+@media (max-width: 960px) {
+  .polaroid { width: 104px; top: -40px; right: -6px; padding: 6px 6px 22px; }
+  .polaroid figcaption { font-size: 14px; bottom: 4px; }
+  .about__text h2 { padding-right: 70px; }
+  .postmark { width: 100px; top: 0; right: 10px; }
+}

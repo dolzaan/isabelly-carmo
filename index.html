@@ -54,6 +54,11 @@
   <!-- selo de cera (usado nos botões de orçamento) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
+      <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#d9bf86" />
+        <stop offset=".5" stop-color="#b08d4f" />
+        <stop offset="1" stop-color="#e2cc97" />
+      </linearGradient>
       <radialGradient id="cera" cx="38%" cy="32%" r="75%">
         <stop offset="0" stop-color="#a8384f" />
         <stop offset=".55" stop-color="#7d2335" />
@@ -265,17 +270,32 @@
         </div>
         <div class="about__text reveal">
           <span class="tape tape--butter" aria-hidden="true"></span>
+          <figure class="polaroid" aria-hidden="true">
+            <svg class="polaroid__clip" viewBox="0 0 24 64"><path d="M8 40V10a4 4 0 0 1 8 0v34a6 6 0 0 1-12 0V14" fill="none" stroke="url(#ouro)" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <img src="/assets/polaroid.jpg" alt="" width="360" height="360" loading="lazy" decoding="async" />
+            <figcaption>no estúdio ✦</figcaption>
+          </figure>
           <h2>Oi, eu sou a <em>Isabelly</em></h2>
           <p>Designer e diretora criativa há 4 anos. Como pessoa criativa, meu objetivo é criar experiências visuais que traduzam a essência de cada negócio — unindo branding, estratégia de marca e social media.</p>
           <ul class="tools" translate="no">
             <li>Pacote Adobe</li><li>CapCut</li><li>Figma</li><li>Canva</li><li>Claude</li>
           </ul>
+          <p class="signature" translate="no">com carinho, <span>Isabelly</span></p>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
     <section class="cta section" id="contato">
+      <svg class="postmark" viewBox="0 0 206 120" aria-hidden="true">
+        <defs><path id="pm-circ" d="M60 60 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0" /></defs>
+        <circle cx="60" cy="60" r="53" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <circle cx="60" cy="60" r="31" fill="none" stroke="currentColor" stroke-width="1" />
+        <text font-size="10" letter-spacing="1.6" fill="currentColor"><textPath href="#pm-circ" textLength="250" lengthAdjust="spacing">RIO DO SUL ✦ SANTA CATARINA ✦</textPath></text>
+        <text x="60" y="57" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="17" fill="currentColor">feito</text>
+        <text x="60" y="73" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="17" fill="currentColor">à mão</text>
+        <path d="M118 40 q14 -6 28 0 t28 0 t28 0 M118 52 q14 -6 28 0 t28 0 t28 0 M118 64 q14 -6 28 0 t28 0 t28 0" fill="none" stroke="currentColor" stroke-width="1.2" />
+      </svg>
       <h2 class="cta__title">Sua marca merece<br />ser lembrada.</h2>
       <div class="cta__actions reveal">
         <a href="https://forms.gle/EU88FLYwaj5GqNEt9" target="_blank" rel="noopener" class="pill pill--main">
