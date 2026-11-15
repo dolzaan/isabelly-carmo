@@ -41,6 +41,22 @@ body {
   overflow-x: hidden;
 }
 .page { background: var(--cream); position: relative; z-index: 2; border-radius: 0 0 36px 36px; overflow: hidden; }
+/* textura leve de papel sobre a página inteira */
+.page::after {
+  content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .32 0 0 0 0 .27 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .16; mix-blend-mode: multiply;
+}
+
+/* fita washi (fita adesiva de papel) */
+.tape {
+  position: absolute; z-index: 3; width: 108px; height: 28px; pointer-events: none;
+  background: repeating-linear-gradient(-45deg, rgba(236, 188, 203, .78) 0 7px, rgba(226, 163, 183, .78) 7px 14px);
+  clip-path: polygon(3% 8%, 0 25%, 4% 45%, 1% 70%, 4% 92%, 97% 100%, 100% 78%, 96% 55%, 100% 32%, 97% 0);
+  box-shadow: 0 1px 2px rgba(42, 27, 23, .12);
+}
+.tape--butter { background: repeating-linear-gradient(90deg, rgba(240, 234, 156, .8) 0 6px, rgba(232, 222, 128, .8) 6px 9px); }
+.tape--kraft { background: rgba(215, 192, 157, .85); }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
@@ -138,14 +154,20 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .hero__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.08); animation: heroZoom 2.2s var(--ease) forwards; }
 @keyframes heroZoom { to { transform: scale(1); } }
 .hero__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(42, 27, 23, .55), transparent 35%); }
+/* etiqueta de papel kraft, com furinho e barbante */
 .hero__badge {
-  position: absolute; z-index: 2; left: 24px; bottom: 24px;
+  position: absolute; z-index: 2; left: 34px; bottom: 30px;
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 10px 16px; border-radius: 999px; font-size: 13px;
-  background: rgba(244, 239, 231, .9); color: var(--espresso);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  padding: 11px 20px 11px 30px; font-size: 13px; color: #3b2a20;
+  background: #d7c09d linear-gradient(170deg, rgba(255, 255, 255, .18), rgba(0, 0, 0, .06));
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%);
+  transform: rotate(-3deg); transform-origin: left center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .25));
 }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: #6fbf73; }
+/* o "furinho" da etiqueta */
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--espresso); box-shadow: inset 0 1px 2px rgba(0, 0, 0, .6), 0 0 0 2px rgba(255, 255, 255, .25); margin-left: -12px; }
+/* barbante saindo do furinho */
+.hero__string { position: absolute; z-index: 2; left: 0; bottom: 0; width: 60px; height: 90px; pointer-events: none; }
 
 .strip { background: var(--paper); text-align: center; padding: 16px var(--pad); color: var(--brown); font-size: clamp(14px, 1.5vw, 18px); letter-spacing: .02em; }
 .strip p { margin: 0; }
@@ -277,6 +299,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 /* ============ CARROSSÉIS (estratégia de conteúdo) ============ */
 .social__lead { max-width: 560px; color: var(--muted); margin: 16px auto 0; }
 .carousels { display: grid; grid-template-columns: repeat(2, minmax(0, 440px)); justify-content: center; gap: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 40px); }
+.carousel { position: relative; }
+.carousel > .tape { top: -12px; left: 50%; translate: -50% 0; rotate: 3deg; }
+.carousel:nth-child(even) > .tape { rotate: -5deg; }
 .carousel h3 { font-size: clamp(22px, 2vw, 28px); line-height: 1.1; margin-top: 14px; }
 .carousel small { display: block; color: var(--taupe); font-size: 13px; margin-top: 4px; }
 .carousel__frame { position: relative; border-radius: 18px; overflow: hidden; background: var(--paper); box-shadow: 0 26px 50px -30px rgba(42, 27, 23, .5); }
@@ -457,7 +482,13 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .oval { padding: 14px; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 1px rgba(196, 174, 153, .35); aspect-ratio: 1.25; display: grid; }
 .oval__inner { border-radius: 50%; border: 1px solid var(--sand); display: grid; place-items: center; padding: 14% 16%; text-align: center; }
 .oval__inner p { margin: 0; font-family: var(--serif); font-size: clamp(22px, 2.4vw, 32px); line-height: 1.15; color: var(--brown); }
-.about__text { background: var(--cream); border-radius: var(--radius); padding: clamp(28px, 4vw, 48px); }
+.about__text {
+  position: relative; background: var(--cream); border-radius: var(--radius); padding: clamp(28px, 4vw, 48px);
+  /* pesponto: costura tracejada por dentro do cartão */
+  outline: 1.5px dashed rgba(140, 122, 107, .5); outline-offset: -12px;
+  box-shadow: 0 18px 34px -24px rgba(42, 27, 23, .4);
+}
+.about__text .tape { top: -12px; left: 50%; translate: -50% 0; rotate: -4deg; }
 .about__text h2 { font-size: clamp(38px, 4.6vw, 62px); margin-bottom: 18px; }
 .about__text p { color: var(--muted); }
 .tools { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }

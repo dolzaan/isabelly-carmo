@@ -203,9 +203,11 @@ const slideHTML = (s, i, title) =>
   s.endsWith(".mp4")
     ? `<div class="cslide"><video src="${C(s)}" poster="${C(s.replace(".mp4", ".webp"))}" muted loop playsinline preload="none" aria-label="${title} — slide ${i + 1} (animação)"></video></div>`
     : `<div class="cslide"><img src="${C(s)}" alt="${title} — slide ${i + 1}" loading="lazy" decoding="async" /></div>`;
+const TAPES = ["", " tape--kraft", " tape--butter", ""];
 $("#carousels").innerHTML = CAROUSELS.map(
-  (c) => `
+  (c, ci) => `
   <article class="carousel reveal">
+    <span class="tape${TAPES[ci % TAPES.length]}" aria-hidden="true"></span>
     <div class="carousel__frame">
       <div class="carousel__track" tabindex="0" aria-label="${c.title}: carrossel com ${c.slides.length} slides">
         ${c.slides.map((s, i) => slideHTML(s, i, c.title)).join("")}
