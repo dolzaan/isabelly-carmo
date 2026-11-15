@@ -307,6 +307,11 @@ const ownCard = (r) => `
     </figcaption>
   </figure>`;
 $("#backstage").innerHTML = BACKSTAGE.map(ownCard).join("");
+// fita washi segurando cada vídeo de bastidores
+["", " tape--kraft", " tape--butter"].forEach((t, i) => {
+  const card = $$("#backstage .reel--own")[i];
+  card && card.insertAdjacentHTML("afterbegin", `<span class="tape${t}" aria-hidden="true"></span>`);
+});
 const reelsEl = $("#reels");
 reelsEl.innerHTML = REELS.map(ownCard).join("");
 

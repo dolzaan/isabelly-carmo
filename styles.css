@@ -182,7 +182,26 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .head h2 { font-size: clamp(42px, 6vw, 80px); }
 
 .manifesto { text-align: center; display: grid; justify-items: center; gap: 36px; padding-bottom: clamp(80px, 10vw, 120px); }
-.manifesto__text { margin: 0; max-width: 900px; font-family: var(--serif); font-size: clamp(30px, 4.2vw, 58px); line-height: 1.1; }
+/* frase escrita numa folha de caderno pautado, com margem e furos de fichário */
+.manifesto__text {
+  --lh: 1.25em;
+  position: relative; margin: 0; max-width: 900px; width: 100%;
+  font-family: var(--serif); font-size: clamp(28px, 3.8vw, 52px); line-height: var(--lh);
+  padding: calc(var(--lh) * .6) clamp(28px, 6vw, 80px) calc(var(--lh) * .6) clamp(56px, 9vw, 120px);
+  text-align: left; background-color: #fbf8f2;
+  background-image:
+    linear-gradient(90deg, transparent calc(clamp(56px, 9vw, 120px) - 22px), rgba(196, 86, 109, .35) calc(clamp(56px, 9vw, 120px) - 22px), rgba(196, 86, 109, .35) calc(clamp(56px, 9vw, 120px) - 20px), transparent 0),
+    linear-gradient(transparent calc(var(--lh) - 1px), rgba(140, 122, 107, .26) 0);
+  background-size: 100% 100%, 100% var(--lh);
+  background-position: 0 0, 0 calc(var(--lh) * .6 + .08em);
+  box-shadow: 0 1px 0 rgba(42, 27, 23, .05), 0 22px 40px -28px rgba(42, 27, 23, .45);
+  rotate: -.6deg;
+}
+/* furos do fichário */
+.manifesto__text::before {
+  content: ""; position: absolute; left: clamp(14px, 2.4vw, 30px); top: 0; bottom: 0; width: 20px;
+  background: radial-gradient(circle 9px, #e3d8c8 78%, rgba(140, 122, 107, .4) 90%, transparent 100%) 0 50% / 20px 33% repeat-y;
+}
 
 /* ============ MARQUEE ============ */
 .marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0; background: var(--paper); }
@@ -391,6 +410,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .backstage .reel--own figcaption a { color: var(--wine); }
 .backstage .reel__frame { box-shadow: 0 24px 50px -28px rgba(42, 27, 23, .45); }
 .backstage .reel--own:nth-child(2) { transform: translateY(32px); } /* leve escalonado */
+.backstage .reel--own { position: relative; overflow: visible; }
+.backstage .reel--own > .tape { top: -12px; left: 50%; translate: -50% 0; rotate: -4deg; z-index: 4; }
+.backstage .reel--own:nth-child(2) > .tape { rotate: 5deg; }
 
 .video__foot { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 32px var(--pad) 0; }
 .video .btn--line:hover { background: var(--cream); color: var(--espresso); border-color: var(--cream); }
@@ -442,15 +464,26 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .process { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
 .process__title { font-size: clamp(44px, 6vw, 84px); text-transform: uppercase; line-height: .95; }
 .process__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+/* cada etapa é um canhoto de ingresso: número destacável, picote e meia-lua recortada */
 .process__list li {
-  display: flex; align-items: center; gap: 18px;
-  padding: 10px 26px 10px 10px; border-radius: 999px; background: var(--taupe); color: var(--cream);
-  transition: transform .35s var(--ease), background .35s;
+  --cut: 76px;
+  display: flex; align-items: center;
+  border-radius: 8px; background: #fbf8f2; color: var(--ink);
+  box-shadow: 0 1px 0 rgba(42, 27, 23, .06), 0 10px 22px -18px rgba(42, 27, 23, .45);
+  -webkit-mask: radial-gradient(circle 8px at var(--cut) 0, #0000 97%, #000) top / 100% 51% no-repeat,
+                radial-gradient(circle 8px at var(--cut) 100%, #0000 97%, #000) bottom / 100% 51% no-repeat;
+          mask: radial-gradient(circle 8px at var(--cut) 0, #0000 97%, #000) top / 100% 51% no-repeat,
+                radial-gradient(circle 8px at var(--cut) 100%, #0000 97%, #000) bottom / 100% 51% no-repeat;
+  transition: transform .35s var(--ease);
 }
-.process__list li:hover { transform: translateX(6px); background: var(--brown); }
-.process__n { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--cream); color: var(--brown); font-family: var(--serif); font-size: 22px; }
+.process__list li:hover { transform: translateX(6px) rotate(-.6deg); }
+.process__n {
+  flex: none; width: var(--cut); align-self: stretch; display: grid; place-items: center;
+  background: var(--rose); color: var(--wine); font-family: var(--serif); font-style: italic; font-size: 26px;
+}
+.process__list li > div { flex: 1; padding: 14px 22px; border-left: 2px dashed rgba(140, 122, 107, .45); }
 .process__list strong { display: block; font-weight: 600; font-size: 15px; }
-.process__list small { display: block; font-size: 13px; opacity: .85; }
+.process__list small { display: block; font-size: 13px; color: var(--muted); }
 
 /* ============ ABOUT ============ */
 /* bordas de papel rasgado em cima e embaixo da toalha xadrez */
@@ -600,7 +633,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
   .footer__cols { gap: 48px; }
   .footer__mark { flex-direction: column; gap: 6px; }
   .footer__sub br { display: none; }
-  .process__list li { padding-right: 18px; }
+  .process__list li { --cut: 58px; }
+  .process__list li > div { padding: 12px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -611,29 +645,10 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 }
 
 /* ============ PAPELARIA CLEAN ============ */
-/* polaroid presa com clipe dourado no cartão Sobre */
-.polaroid {
-  position: absolute; z-index: 2; top: -34px; right: -26px; width: 132px; margin: 0;
-  padding: 8px 8px 28px; background: #fbf8f2;
-  box-shadow: 0 14px 24px -14px rgba(42, 27, 23, .45), 0 1px 2px rgba(42, 27, 23, .12);
-  rotate: 6deg;
-}
-.polaroid img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
-.polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; font-family: var(--script); font-size: 17px; color: var(--brown); }
-.polaroid__clip { position: absolute; z-index: 1; top: -22px; left: 18px; width: 14px; height: 40px; rotate: -8deg; filter: drop-shadow(0 1px 1px rgba(42, 27, 23, .25)); }
-.about__text h2 { padding-right: 96px; }
-
-/* assinatura à mão no fim do cartão */
-.signature { margin: 26px 0 0; font-size: 13px; color: var(--taupe); }
-.signature span { display: block; margin-top: 2px; font-family: var(--script); font-size: 38px; line-height: 1; color: var(--brown); }
-
 /* carimbo postal no contato */
 .cta { position: relative; }
 .postmark { position: absolute; top: clamp(56px, 8vw, 104px); right: max(var(--pad), calc(50% - 470px)); width: 170px; height: auto; color: rgba(125, 35, 53, .55); rotate: -9deg; pointer-events: none; }
 
 @media (max-width: 960px) {
-  .polaroid { width: 104px; top: -40px; right: -6px; padding: 6px 6px 22px; }
-  .polaroid figcaption { font-size: 14px; bottom: 4px; }
-  .about__text h2 { padding-right: 70px; }
   .postmark { width: 100px; top: 0; right: 10px; }
 }
