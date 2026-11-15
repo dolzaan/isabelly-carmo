@@ -428,6 +428,14 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .process__list small { display: block; font-size: 13px; opacity: .85; }
 
 /* ============ ABOUT ============ */
+/* bordas de papel rasgado em cima e embaixo da toalha xadrez */
+.about { position: relative; }
+.about::before, .about::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 24px; pointer-events: none;
+  background: url("/assets/papel-rasgado.svg") 0 0 / 1200px 24px repeat-x;
+}
+.about::before { top: 0; }
+.about::after { bottom: 0; transform: scaleY(-1); background-position: 340px 0; }
 .about {
   margin-top: clamp(80px, 11vw, 140px);
   padding: clamp(64px, 9vw, 120px) var(--pad);
@@ -469,6 +477,14 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .pill strong { display: block; font-weight: 600; font-size: 15px; }
 .pill small { display: block; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pill > span:last-child { min-width: 0; }
+/* selo de cera no botão principal de orçamento */
+.pill__seal {
+  flex: none; width: 66px; height: 66px; margin: -10px -2px -10px -6px;
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 4px 5px rgba(86, 20, 33, .35));
+  transition: transform .45s var(--ease);
+}
+.pill--main:hover .pill__seal { transform: rotate(4deg) scale(1.06); }
 .pill--main { background: var(--rose); }
 .pill--main:hover { background: var(--rose-2); }
 .pill--main small { color: var(--brown); }
