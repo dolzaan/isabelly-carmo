@@ -198,6 +198,12 @@ const CAROUSELS = [
     tag: "Posicionamento de marca, 3 slides",
     slides: range(1, 3),
   },
+  {
+    title: "Aurora Floricultura",
+    tag: "Posts de feed, 4 posts",
+    slides: range(5, 4),
+    ratio: "4 / 5", // posts no formato do feed do Instagram
+  },
 ];
 const slideHTML = (s, i, title) =>
   s.endsWith(".mp4")
@@ -206,7 +212,7 @@ const slideHTML = (s, i, title) =>
 const TAPES = ["", " tape--kraft", " tape--butter", ""];
 $("#carousels").innerHTML = CAROUSELS.map(
   (c, ci) => `
-  <article class="carousel reveal">
+  <article class="carousel reveal"${c.ratio ? ` style="--cratio:${c.ratio}"` : ""}>
     <span class="tape${TAPES[ci % TAPES.length]}" aria-hidden="true"></span>
     <div class="carousel__frame">
       <div class="carousel__track" tabindex="0" aria-label="${c.title}: carrossel com ${c.slides.length} slides">
@@ -578,4 +584,10 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion) {
   document.addEventListener("mouseleave", () => cur.classList.remove("is-on"));
   // ao abrir a galeria, esconde o cursor
   document.addEventListener("click", (e) => { if (e.target.closest(".ptile__frame")) cur.classList.remove("is-on"); });
+}
+
+// ===== Fita de serviços: só anima enquanto está visível na tela =====
+{
+  const marquee = $(".marquee");
+  if (marquee) new IntersectionObserver(([e]) => marquee.classList.toggle("is-paused", !e.isIntersecting)).observe(marquee);
 }

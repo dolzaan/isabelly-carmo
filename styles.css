@@ -7,7 +7,7 @@
   --cream: #f4efe7;
   --paper: #ebe3d6;
   --sand: #d9cdbd;
-  --taupe: #8c7a6b;
+  --taupe: #74645a; /* escurecido para ter contraste suficiente em textos pequenos */
   --brown: #6b5246;
   --espresso: #2a1b17;
   --ink: #2a1b17;
@@ -187,6 +187,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 /* ============ MARQUEE ============ */
 .marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0; background: var(--paper); }
 .marquee__track { display: flex; align-items: center; gap: 36px; width: max-content; animation: marquee 36s linear infinite; }
+/* pausa a fita ao passar o mouse ou quando ela sai da tela */
+.marquee:hover .marquee__track, .marquee.is-paused .marquee__track { animation-play-state: paused; }
 .marquee__track span { font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--brown); }
 .marquee__track i { font-style: normal; color: var(--rose-2); }
 @keyframes marquee { to { transform: translateX(-50%); } }
@@ -298,7 +300,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 
 /* ============ CARROSSÉIS (estratégia de conteúdo) ============ */
 .social__lead { max-width: 560px; color: var(--muted); margin: 16px auto 0; }
-.carousels { display: grid; grid-template-columns: repeat(2, minmax(0, 440px)); justify-content: center; gap: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 40px); }
+/* flex em vez de grade: com número ímpar de carrosséis, o último fica centralizado */
+.carousels { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 40px); }
+.carousels > .carousel { flex: 0 1 440px; min-width: 0; }
 .carousel { position: relative; }
 .carousel > .tape { top: -12px; left: 50%; translate: -50% 0; rotate: 3deg; }
 .carousel:nth-child(even) > .tape { rotate: -5deg; }
@@ -307,7 +311,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
 .carousel__frame { position: relative; border-radius: 18px; overflow: hidden; background: var(--paper); box-shadow: 0 26px 50px -30px rgba(42, 27, 23, .5); }
 .carousel__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .carousel__track::-webkit-scrollbar { display: none; }
-.cslide { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 3 / 4; }
+.cslide { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: var(--cratio, 3 / 4); }
 .cslide img, .cslide video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .carousel__nav {
   position: absolute; top: 50%; translate: 0 -50%; width: 40px; height: 40px; border-radius: 50%;
@@ -588,7 +592,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spac
   .ptile { grid-column: 1 / -1; }
   .ptile__frame { aspect-ratio: var(--mratio, 1); }
   .pillars { grid-template-columns: 1fr; gap: 36px; }
-  .carousels { grid-template-columns: minmax(0, 1fr); }
+  .carousels > .carousel { flex-basis: 100%; }
   .backstage__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; justify-content: flex-start; margin: 0 calc(-1 * var(--pad)); padding: 0 var(--pad) 12px; scroll-padding-inline: var(--pad); }
   .backstage .reel--own { flex: 0 0 72%; scroll-snap-align: start; }
   .backstage .reel--own:nth-child(2) { transform: none; }
